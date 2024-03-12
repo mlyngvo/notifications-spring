@@ -72,7 +72,14 @@ class EmailService(
 
     private fun parseSubject(subject: String) =
         "${emailProperties.subjectPrefix}${subject}${emailProperties.subjectPostfix}"
-            .substring(0, SUBJECT_MAX_LENGTH)
+            .let {
+                if (it.length > SUBJECT_MAX_LENGTH) {
+                    it.substring(0, SUBJECT_MAX_LENGTH)
+                } else {
+                    it
+                }
+            }
+
 
     private fun processTemplate(templateName: String, locale: Locale?, variables: Map<String, Any>?) =
         emailTemplateService.processTemplate("$templateName.html", locale, variables)
