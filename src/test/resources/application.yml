@@ -1,0 +1,23 @@
+#spring:
+#  mail:
+#    host: BLANK
+#    port: 587
+#    username: BLANK
+#    password: BLANK
+#    default-encoding: UTF-8
+#    protocol: smtp
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#
+#  main:
+#    allow-bean-definition-overriding: true
+#
+#notifications:
+#  email:
+#    enabled: true
+#    default-from: Pin Point <office@pinpoint.at>

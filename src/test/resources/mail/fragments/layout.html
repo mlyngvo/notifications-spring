@@ -1,0 +1,559 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600&display=swap" rel="stylesheet">-->
+    <style type="text/css">
+        /* be-vietnam-pro-latin-400-normal */
+        @font-face {
+            font-family: 'Be Vietnam Pro';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/latin-400-normal.woff) format('woff'), url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/latin-400-normal.ttf) format('truetype');
+            unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+        }
+
+        /* be-vietnam-pro-vietnamese-400-normal */
+        @font-face {
+            font-family: 'Be Vietnam Pro';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/vietnamese-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/vietnamese-400-normal.woff) format('woff'), url(https://cdn.jsdelivr.net/fontsource/fonts/be-vietnam-pro@latest/vietnamese-400-normal.ttf) format('truetype');
+            unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+        }
+        /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+        #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
+        .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+        body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+        table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+        img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+
+        /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+        body{margin:0; padding:0;}
+        img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+        table{border-collapse:collapse !important;}
+        body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+
+        /* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+
+        /* ========== Page Styles ========== */
+
+        #bodyCell{padding:20px;}
+        #templateContainer{width:600px;}
+
+        /**
+        * @tab Page
+        * @section background style
+        * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+        * @theme page
+        */
+        body, #bodyTable{
+            /*@editable*/ background-color: #ECEFF1;
+        }
+
+        /**
+        * @tab Page
+        * @section background style
+        * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+        * @theme page
+        */
+        #bodyCell{
+            /*!*@editable*! border-top:4px solid #BBBBBB;*/
+        }
+
+        /**
+        * @tab Page
+        * @section email border
+        * @tip Set the border for your email.
+        */
+        #templateContainer{
+            /*!*@editable*! border:1px solid #BBBBBB;*/
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /**
+        * @tab Page
+        * @section heading 1
+        * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+        * @style heading 1
+        */
+        h1{
+            /*@editable*/ color:#0E1014 !important;
+            display:block;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:19px;
+            /*@editable*/ font-style:normal;
+            /*@editable*/ font-weight:bold;
+            /*@editable*/ line-height:100%;
+            /*@editable*/ letter-spacing:normal;
+            margin-top:0;
+            margin-right:0;
+            margin-bottom:10px;
+            margin-left:0;
+            /*@editable*/ text-align:left;
+        }
+
+        /**
+        * @tab Page
+        * @section heading 2
+        * @tip Set the styling for all second-level headings in your emails.
+        * @style heading 2
+        */
+        h2{
+            /*@editable*/ color:#0E1014 !important;
+            display:block;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:16px;
+            /*@editable*/ font-style:normal;
+            /*@editable*/ font-weight:bold;
+            /*@editable*/ line-height:100%;
+            /*@editable*/ letter-spacing:normal;
+            margin-top:0;
+            margin-right:0;
+            margin-bottom:10px;
+            margin-left:0;
+            /*@editable*/ text-align:left;
+        }
+
+        /**
+        * @tab Page
+        * @section heading 3
+        * @tip Set the styling for all third-level headings in your emails.
+        * @style heading 3
+        */
+        h3{
+            /*@editable*/ color:#0E1014 !important;
+            display:block;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:13px;
+            /*@editable*/ font-style:italic;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ line-height:100%;
+            /*@editable*/ letter-spacing:normal;
+            margin-top:0;
+            margin-right:0;
+            margin-bottom:10px;
+            margin-left:0;
+            /*@editable*/ text-align:left;
+        }
+
+        /**
+        * @tab Page
+        * @section heading 4
+        * @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+        * @style heading 4
+        */
+        h4{
+            /*@editable*/ color:#0E1014 !important;
+            display:block;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:12px;
+            /*@editable*/ font-style:italic;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ line-height:100%;
+            /*@editable*/ letter-spacing:normal;
+            margin-top:0;
+            margin-right:0;
+            margin-bottom:10px;
+            margin-left:0;
+            /*@editable*/ text-align:left;
+        }
+
+        /* ========== Header Styles ========== */
+
+        /**
+        * @tab Header
+        * @section preheader style
+        * @tip Set the background color and bottom border for your email's preheader area.
+        * @theme header
+        */
+        #templatePreheader{
+            /*@editable*/ background-color:#F4F4F4;
+            /*@editable*/ border-bottom:1px solid #CCCCCC;
+        }
+
+        /**
+        * @tab Header
+        * @section preheader text
+        * @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+        */
+        .preheaderContent{
+            /*@editable*/ color:#808080;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:10px;
+            /*@editable*/ line-height:125%;
+            /*@editable*/ text-align:left;
+        }
+
+        /**
+        * @tab Header
+        * @section preheader link
+        * @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+        */
+        .preheaderContent a:link, .preheaderContent a:visited, /* Yahoo! Mail Override */ .preheaderContent a .yshortcuts /* Yahoo! Mail Override */{
+            /*@editable*/ color:#606060;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ text-decoration:underline;
+        }
+
+        /**
+        * @tab Header
+        * @section header style
+        * @tip Set the background color and borders for your email's header area.
+        * @theme header
+        */
+        #templateHeader{
+            /*@editable*/
+            /*@editable*/ border: none;
+            margin-bottom: 1rem;
+        }
+
+        /**
+        * @tab Header
+        * @section header text
+        * @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+        */
+        .headerContent{
+            /*@editable*/ color:#505050;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:20px;
+            /*@editable*/ font-weight:bold;
+            /*@editable*/ line-height:100%;
+            /*@editable*/ padding-top: 2rem;
+            /*@editable*/ padding-bottom: 0;
+            /*@editable*/ padding-left: 0;
+            /*@editable*/ padding-right: 0;
+            /*@editable*/ text-align:left;
+            /*@editable*/ vertical-align:middle;
+        }
+
+        /**
+        * @tab Header
+        * @section header link
+        * @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+        */
+        .headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
+            /*@editable*/ color:#1976d2;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ text-decoration:underline;
+        }
+
+        #headerImage {
+            display: inline-block;
+            height:auto !important;
+            /*!*@editable*! max-width:600px !important;*/
+            /*!*@editable*! width:140px !important;*/
+        }
+
+        #headerTitle {
+            display: inline-block;
+            margin: 0;
+        }
+
+        /* ========== Body Styles ========== */
+
+        /**
+        * @tab Body
+        * @section body style
+        * @tip Set the background color and borders for your email's body area.
+        */
+        #templateBody{
+            /*@editable*/ background-color:#FFFFFF;
+            /*@editable*/ border: 1px solid #CFD8DC;
+            border-radius: 5px;
+            display: block;
+        }
+
+        /**
+        * @tab Body
+        * @section body text
+        * @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+        * @theme main
+        */
+        .bodyContent{
+            /*@editable*/ color:#505050;
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:14px;
+            /*@editable*/ line-height:150%;
+            padding-top:20px;
+            padding-right:20px;
+            padding-bottom:20px;
+            padding-left:20px;
+            /*@editable*/ text-align:left;
+        }
+
+        /**
+        * @tab Body
+        * @section body link
+        * @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+        */
+        .bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
+            /*@editable*/ color:#1976d2;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ text-decoration:underline;
+        }
+
+        .bodyContent img{
+            display:inline;
+            height:auto;
+            max-width:560px;
+        }
+
+        /* ========== Footer Styles ========== */
+
+        /**
+        * @tab Footer
+        * @section footer style
+        * @tip Set the background color and borders for your email's footer area.
+        * @theme footer
+        */
+        #templateFooter{
+            /*@editable*/ border-top: none;
+        }
+
+        /**
+        * @tab Footer
+        * @section footer text
+        * @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+        * @theme footer
+        */
+        .footerContent{
+            /*@editable*/ font-family: 'Be Vietnam Pro', 'Arial', sans-serif;
+            /*@editable*/ font-size:12px;
+            /*@editable*/ color: #607D8B;
+            /*@editable*/ line-height:150%;
+            padding-top:20px;
+            padding-right:20px;
+            padding-bottom:20px;
+            padding-left:20px;
+            /*@editable*/ text-align:center;
+        }
+
+        /**
+        * @tab Footer
+        * @section footer link
+        * @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+        */
+        .footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
+            /*@editable*/ color:#FFFFFF;
+            /*@editable*/ font-weight:normal;
+            /*@editable*/ text-decoration:underline;
+        }
+
+        /* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
+        @media only screen and (max-width: 680px){
+            #templateContainer{
+                width: 460px;
+            }
+        }
+
+        @media only screen and (max-width: 480px){
+            /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+            body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
+            body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+
+            /* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
+            #bodyCell{padding:10px !important;}
+
+            /* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
+
+            /* ======== Page Styles ======== */
+
+            /**
+            * @tab Mobile Styles
+            * @section template width
+            * @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+            */
+            #templateContainer{
+                max-width:440px !important;
+                /*@editable*/ width:100% !important;
+            }
+
+            /**
+            * @tab Mobile Styles
+            * @section heading 1
+            * @tip Make the first-level headings larger in size for better readability on small screens.
+            */
+            h1{
+                /*@editable*/ font-size:18px !important;
+                /*@editable*/ line-height:125% !important;
+            }
+
+            /**
+            * @tab Mobile Styles
+            * @section heading 2
+            * @tip Make the second-level headings larger in size for better readability on small screens.
+            */
+            h2{
+                /*@editable*/ font-size:16px !important;
+                /*@editable*/ line-height:125% !important;
+            }
+
+            /**
+            * @tab Mobile Styles
+            * @section heading 3
+            * @tip Make the third-level headings larger in size for better readability on small screens.
+            */
+            h3{
+                /*@editable*/ font-size:13px !important;
+                /*@editable*/ line-height:125% !important;
+            }
+
+            /**
+            * @tab Mobile Styles
+            * @section heading 4
+            * @tip Make the fourth-level headings larger in size for better readability on small screens.
+            */
+            h4{
+                /*@editable*/ font-size:12px !important;
+                /*@editable*/ line-height:125% !important;
+            }
+
+            /* ======== Header Styles ======== */
+
+            #templatePreheader{display:none !important;} /* Hide the template preheader to save space */
+
+            /**
+            * @tab Mobile Styles
+            * @section header image
+            * @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+            */
+
+
+            /**
+            * @tab Mobile Styles
+            * @section header text
+            * @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+            */
+            .headerContent{
+                /*@editable*/ font-size:18px !important;
+                /*@editable*/ line-height:125% !important;
+            }
+
+            /* ======== Body Styles ======== */
+
+            /**
+            * @tab Mobile Styles
+            * @section body text
+            * @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+            */
+            .bodyContent{
+                /*@editable*/ font-size:14px !important;
+                /*@editable*/ line-height:150% !important;
+            }
+
+            /* ======== Footer Styles ======== */
+
+            /**
+            * @tab Mobile Styles
+            * @section footer text
+            * @tip Make the body content text larger in size for better readability on small screens.
+            */
+            .footerContent{
+                /*@editable*/ font-size:12px !important;
+                /*@editable*/ line-height:115% !important;
+            }
+
+            .footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
+        }
+    </style>
+</head>
+<body th:fragment="body(content)" leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+<center>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <tr>
+            <td align="center" valign="top" id="bodyCell">
+                <!-- BEGIN TEMPLATE // -->
+                <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+                    <tr>
+                        <td align="center" valign="top">
+                            <!-- BEGIN HEADER // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                                <tr>
+                                    <td valign="top" class="headerContent">
+<!--                                        <img th:src="${image.logo.src}" id="headerImage" />-->
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAEuGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjE1MCIKICAgZXhpZjpQaXhlbFlEaW1lbnNpb249IjE1MCIKICAgZXhpZjpDb2xvclNwYWNlPSIxIgogICB0aWZmOkltYWdlV2lkdGg9IjE1MCIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMTUwIgogICB0aWZmOlJlc29sdXRpb25Vbml0PSIyIgogICB0aWZmOlhSZXNvbHV0aW9uPSI3Mi8xIgogICB0aWZmOllSZXNvbHV0aW9uPSI3Mi8xIgogICBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIgogICBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiCiAgIHhtcDpNb2RpZnlEYXRlPSIyMDI0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"
+                                            id="headerImage"
+                                            width="30px"
+                                        />
+                                        &nbsp;
+                                        <h1 id="headerTitle">Pin Point Center</h1>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- // END HEADER -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <!-- BEGIN BODY // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
+                                <tr>
+                                    <td valign="top" class="bodyContent">
+                                        <div th:insert="${content}">
+                                            <section>
+                                                <h1>Designing Your Template</h1>
+                                                <h3>Creating a good-looking email is simple</h3>
+                                                Customize your template by clicking on the style editor tabs above. Set your fonts, colors, and styles. After setting your styling is all done you can click here in this area, delete the text, and start adding your own awesome content.
+                                                <br />
+                                                <br />
+                                                <h2>Styling Your Content</h2>
+                                                <h4>Make your email easy to read</h4>
+                                                After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "<em>styles</em>" drop down box. Want to <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">get rid of styling on a bit of text</a>, but having trouble doing it? Just use the "<em>remove formatting</em>" button to strip the text of any formatting and reset your style.
+
+                                                <div th:fragment="highlight(label, value)" th:style="${style.attention}">
+                                                    <div th:text="${label}">The answer:</div>
+                                                    <h3 th:style="${style.highlightVal}" th:text="${value}">42</h3>
+                                                </div>
+
+                                                <div th:fragment="callToAction(href, text)" th:style="${style.attention}">
+                                                    <a th:style="${style.button}" th:href="${href}" th:text="${text}">
+                                                        Visit our website!
+                                                    </a>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <p th:utext="#{mail.common.farewell}">
+                                            Farewell,
+                                            <br />
+                                            Pin Point GmbH
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- // END BODY -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <!-- BEGIN FOOTER // -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
+                                <tr>
+                                    <td valign="top" class="footerContent">
+                                        Copyright &copy; <th:block th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2022</th:block> Pin Point GmbH. Alle Rechte vorbehalten.
+                                    </td>
+                                </tr>
+<!--                                <tr>-->
+<!--                                    <td valign="top" class="footerContent" style="padding-top:0; padding-bottom:40px;" mc:edit="footer_content02">-->
+<!--                                        <a href="*|UNSUB|*">unsubscribe from this list</a>&nbsp;&nbsp;&nbsp;<a href="*|UPDATE_PROFILE|*">update subscription preferences</a>&nbsp;-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                            </table>
+                            <!-- // END FOOTER -->
+                        </td>
+                    </tr>
+                </table>
+                <!-- // END TEMPLATE -->
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

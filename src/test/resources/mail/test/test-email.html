@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body th:replace="fragments/layout :: body(~{::section})">
+<section>
+    <h1>Welcome to notifications-spring</h1>
+
+    <p th:text="#{mail.common.greeting-empty}">Dears Mrs./Mr.,</p>
+    <p>Looks like you have managed to send out the email using notifications-spring package. Good job!</p>
+
+    <div th:replace="fragments/layout :: callToAction('https://github.com/mlyngvo/notifications-spring', 'View Repo')"></div>
+</section>
+</body>
+</html>
