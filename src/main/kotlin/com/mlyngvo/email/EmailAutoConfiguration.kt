@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets
 
 @Configuration
 @EnableConfigurationProperties(EmailProperties::class)
-@ConditionalOnProperty(prefix = "notifications", name = ["email.enabled"], havingValue = "true")
+@ConditionalOnProperty(name = ["notifications.email.enabled"], havingValue = "true")
 class EmailAutoConfiguration {
 
     @Bean
@@ -25,7 +25,7 @@ class EmailAutoConfiguration {
     private fun htmlTemplateResolver(): ITemplateResolver =
         ClassLoaderTemplateResolver()
             .let {
-                it.order = 2
+                it.order = 1
                 it.prefix = "mail/"
                 it.suffix = ".html"
                 it.templateMode = TemplateMode.HTML
