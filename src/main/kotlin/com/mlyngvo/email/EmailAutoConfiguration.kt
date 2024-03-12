@@ -1,11 +1,11 @@
 package com.mlyngvo.email
 
+import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.mail.javamail.JavaMailSender
-import org.springframework.mail.javamail.JavaMailSenderImpl
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.spring6.SpringTemplateEngine
 import org.thymeleaf.templatemode.TemplateMode
@@ -13,14 +13,14 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.thymeleaf.templateresolver.ITemplateResolver
 import java.nio.charset.StandardCharsets
 
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(EmailProperties::class)
-@ConditionalOnProperty(name = ["notifications.email.enabled"], havingValue = "true")
-class EmailAutoConfiguration {
-
-    @Bean
-    fun javaMailSender(): JavaMailSender =
-        JavaMailSenderImpl()
+@ConditionalOnProperty(prefix = "notifications", name = ["email.enabled"], havingValue = "true")
+class EmailAutoConfiguration(
+    private val emailProperties: EmailProperties,
+    private val emailSender: JavaMailSender,
+    private val messageSource: MessageSource,
+) {
 
     private fun htmlTemplateResolver(): ITemplateResolver =
         ClassLoaderTemplateResolver()
@@ -39,10 +39,15 @@ class EmailAutoConfiguration {
         SpringTemplateEngine()
             .let {
                 it.addTemplateResolver(htmlTemplateResolver())
+                it.setTemplateEngineMessageSource(messageSource)
                 it
             }
 
     @Bean
     fun emailTemplateService(): EmailTemplateService =
         EmailTemplateService(templateEngine())
+
+    @Bean
+    fun emailService(): EmailService =
+        EmailService(emailSender, emailProperties, emailTemplateService())
 }

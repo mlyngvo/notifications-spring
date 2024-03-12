@@ -10,11 +10,9 @@ import jakarta.mail.internet.MimeMultipart
 import jakarta.mail.internet.MimeUtility
 import jakarta.mail.util.ByteArrayDataSource
 import org.springframework.mail.javamail.JavaMailSender
-import org.springframework.stereotype.Service
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 
-@Service
 class EmailService(
     private val javaMailSender: JavaMailSender,
     private val emailProperties: EmailProperties,
@@ -71,7 +69,7 @@ class EmailService(
         ))
 
     private fun parseSubject(subject: String) =
-        "${emailProperties.subjectPrefix}${subject}${emailProperties.subjectPostfix}"
+        "${emailProperties.subjectPrefix?: ""}${subject}${emailProperties.subjectPostfix?: ""}"
             .let {
                 if (it.length > SUBJECT_MAX_LENGTH) {
                     it.substring(0, SUBJECT_MAX_LENGTH)
