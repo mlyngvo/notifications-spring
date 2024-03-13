@@ -62,8 +62,10 @@ dependencies {
     api("org.springframework.boot:spring-boot-starter-mail")
     api("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.icegreen:greenmail-spring:2.0.1")
+    testImplementation("org.awaitility:awaitility:4.2.0")
+
 }
 
 kotlin {

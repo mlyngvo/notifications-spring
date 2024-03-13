@@ -5,8 +5,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 @ConfigurationProperties("notifications.email")
 data class EmailProperties(
     val enabled: Boolean = false,
-    val subjectPrefix: String? = null,
-    val subjectPostfix: String? = null,
-    val defaultFrom: String = "",
+    val debug: Boolean = false,
+    val smtp: EmailSmtpProperties? = null,
+    val subjectPrefix: String = "",
+    val subjectPostfix: String = "",
+    val defaultFrom: String? = null,
     val fixedRecipients: String? = null
 )

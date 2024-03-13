@@ -69,7 +69,7 @@ class EmailService(
         ))
 
     private fun parseSubject(subject: String) =
-        "${emailProperties.subjectPrefix?: ""}${subject}${emailProperties.subjectPostfix?: ""}"
+        "${emailProperties.subjectPrefix}${subject}${emailProperties.subjectPostfix}"
             .let {
                 if (it.length > SUBJECT_MAX_LENGTH) {
                     it.substring(0, SUBJECT_MAX_LENGTH)
@@ -107,7 +107,7 @@ class EmailService(
         message.setFrom(request.from ?: emailProperties.defaultFrom)
 
         if (request.replyTo?.isNotBlank() == true) {
-            message.replyTo = arrayOf(InternetAddress(request.replyTo))
+            message.replyTo = InternetAddress.parse(request.replyTo)
         }
 
         if (emailProperties.fixedRecipients?.isNotEmpty() == true) {
@@ -178,7 +178,7 @@ class EmailService(
         message.setContent(content)
 
         javaMailSender.send(message)
-        log.info("Email sent. Subject: ${message.subject} - TO: ${request.recipients}")
+        log.info("Email sent. Subject: ${message.subject} - TO: ${request.recipients.joinToString(", ")}")
 
         return message.messageID
     }

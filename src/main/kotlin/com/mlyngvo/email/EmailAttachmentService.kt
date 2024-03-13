@@ -1,10 +1,12 @@
 package com.mlyngvo.email
 
+import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.net.URL
 import java.util.Base64
 
+@Service
 class EmailAttachmentService {
 
     companion object {

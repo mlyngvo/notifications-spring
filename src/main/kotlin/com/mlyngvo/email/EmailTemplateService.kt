@@ -3,14 +3,11 @@ package com.mlyngvo.email
 import com.mlyngvo.Logger
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.support.PropertiesLoaderUtils
-import org.springframework.stereotype.Service
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import java.io.IOException
 import java.util.Locale
-import java.util.stream.Collectors
 
-@Service
 class EmailTemplateService(
     private val templateEngine: TemplateEngine
 ): Logger() {
