@@ -5,5 +5,4 @@ import org.springframework.context.annotation.ComponentScan
 
 @AutoConfiguration
 @ComponentScan
-class NotificationsAutoConfiguration {
-}
+class NotificationsAutoConfiguration

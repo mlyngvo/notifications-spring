@@ -1,10 +1,10 @@
 package com.mlyngvo.email
 
-import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.mail.javamail.JavaMailSender
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.spring6.SpringTemplateEngine
@@ -13,7 +13,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.thymeleaf.templateresolver.ITemplateResolver
 import java.nio.charset.StandardCharsets
 
-@AutoConfiguration
+@Configuration
 @EnableConfigurationProperties(EmailProperties::class)
 @ConditionalOnProperty(prefix = "notifications", name = ["email.enabled"], havingValue = "true")
 class EmailAutoConfiguration(
