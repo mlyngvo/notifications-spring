@@ -30,7 +30,7 @@ class EmailAutoConfiguration(
             .let {
                 if (emailProperties.smtp != null) {
                     it.host = emailProperties.smtp.host
-                    it.port = emailProperties.smtp.port
+                    it.port = Integer.parseInt(emailProperties.smtp.port)
                     it.username = emailProperties.smtp.user
                     it.password = emailProperties.smtp.pass
                     it.defaultEncoding = StandardCharsets.UTF_8.name()
