@@ -9,4 +9,5 @@ data class EmailSmtpProperties(
     val user: String = "user",
     val pass: String = "pass",
     val starttls: Boolean = true,
+    val ssl: Boolean = false,
 )

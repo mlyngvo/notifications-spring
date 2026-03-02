@@ -6,6 +6,7 @@ notifications:
   email:
     enabled: true
     debug: true
+    default-from: your@domain.com
     smtp:
       host: localhost
       port: 2525

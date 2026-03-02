@@ -39,7 +39,10 @@ class EmailAutoConfiguration(
                     val mailProperties = Properties()
                     mailProperties["mail.smtp.auth"] = true
                     mailProperties["mail.smtp.starttls.enable"] = emailProperties.smtp.starttls
-                    mailProperties["mail.smtp.debug"] = emailProperties.debug
+                    mailProperties["mail.smtp.starttls.required"] = emailProperties.smtp.starttls
+                    mailProperties["mail.smtp.ssl.enable"] = emailProperties.smtp.ssl
+                    mailProperties["mail.smtp.localhost"] = "localhost"
+                    mailProperties["mail.debug"] = emailProperties.debug.toString()
                     it.javaMailProperties = mailProperties
                 }
                 it
