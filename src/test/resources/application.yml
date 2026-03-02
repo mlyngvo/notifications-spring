@@ -12,4 +12,5 @@ notifications:
       port: 2525
       user: user
       pass: pass
-      starttls: true
+      starttls: false
+
