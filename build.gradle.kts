@@ -9,17 +9,73 @@ plugins {
     kotlin("plugin.spring") version "1.9.22"
 
     `maven-publish`
+    signing
+}
+
+group = "dev.mlyngvo"
+if (version == "unspecified") {
+    version = "0.0.1-SNAPSHOT"
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+            artifactId = "notifications-spring"
+
+            pom {
+                name.set("notifications-spring")
+                description.set("Various notification implementations for Spring Boot application.")
+                url.set("https://github.com/mlyngvo/notifications-spring")
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("mlyngvo")
+                        name.set("Ly Nguyen")
+                        email.set("contact@minhlynguyenvo.com")
+                    }
+                }
+
+                scm {
+                    url.set("https://github.com/mlyngvo/notifications-spring")
+                    connection.set("scm:git:git://github.com/mlyngvo/notifications-spring.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/mlyngvo/notifications-spring.git")
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "staging"
+            url = uri(layout.buildDirectory.dir("staging-deploy"))
         }
     }
 }
 
-group = "com.mlyngvo"
+signing {
+    val signingKey = findProperty("signingInMemoryKey") as String?
+        ?: System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKey")
+    val signingPassword = findProperty("signingInMemoryKeyPassword") as String?
+        ?: System.getenv("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")
+    isRequired = !signingKey.isNullOrBlank()
+    if (!signingKey.isNullOrBlank()) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications["maven"])
+    }
+}
 
 repositories {
     mavenCentral()

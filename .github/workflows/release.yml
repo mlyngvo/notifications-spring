@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '[0-9]*'
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g. 0.1.2)'
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'oracle'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build and stage signed artifacts
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKey }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_signingInMemoryKeyPassword }}
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="${GITHUB_REF_NAME#v}"
+          fi
+          ./gradlew publishAllPublicationsToStagingRepository -Pversion="$VERSION"
+
+      - name: Upload bundle to Maven Central
+        env:
+          CENTRAL_USERNAME: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
+          CENTRAL_PASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
+        run: |
+          cd build/staging-deploy
+          zip -r ../bundle.zip .
+          AUTH=$(printf '%s:%s' "$CENTRAL_USERNAME" "$CENTRAL_PASSWORD" | base64 -w 0)
+          curl --fail-with-body -sS -X POST \
+            "https://central.sonatype.com/api/v1/publisher/upload?publishingType=AUTOMATIC" \
+            -H "Authorization: Bearer $AUTH" \
+            -F "bundle=@../bundle.zip"
