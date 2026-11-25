@@ -1,12 +1,12 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.2.3"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "4.0.10"
+    id("io.spring.dependency-management") version "1.1.7"
 
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
+    kotlin("jvm") version "2.2.21"
+    kotlin("plugin.spring") version "2.2.21"
 
     `maven-publish`
     signing
@@ -81,20 +81,13 @@ repositories {
     mavenCentral()
 }
 
-tasks.getByName<BootJar>("bootJar") {
+tasks.named<BootJar>("bootJar") {
     enabled = false
 }
 
-tasks.getByName<Jar>("jar") {
+tasks.named<Jar>("jar") {
     enabled = true
     archiveClassifier.set("")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs += "-Xjsr305=strict"
-    }
 }
 
 tasks.withType<Test> {
@@ -102,18 +95,21 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
 
     api("org.springframework.boot:spring-boot-starter-mail")
     api("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-     testImplementation("com.icegreen:greenmail-spring:2.1.8")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("com.icegreen:greenmail-spring:2.1.8")
     testImplementation("org.awaitility:awaitility:4.2.0")
-
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+        freeCompilerArgs.addAll("-Xjsr305=strict")
+    }
 }
